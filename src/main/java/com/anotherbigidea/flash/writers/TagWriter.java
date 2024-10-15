@@ -65,7 +65,8 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     
     protected SWFActions factorySWFActions()
     {
-        return new ActionWriter( this, version );    }
+        return new ActionWriter( this, version );
+    }
     
     protected SWFShape factorySWFShape( boolean hasAlpha, boolean hasStyle )
     {
@@ -156,8 +157,10 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
      * SWFTagTypes interface
      */
     public void tagShowFrame() throws IOException
-    {        mTags.tag( TAG_SHOWFRAME, false, null );
-    }    
+    {
+        mTags.tag( TAG_SHOWFRAME, false, null );
+    }
+    
     /**
      * SWFTagTypes interface
      */
@@ -166,49 +169,88 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
                                 int sampleCount, byte[] soundData ) 
         throws IOException
     {
-        startTag( TAG_DEFINESOUND, id, true );        out.writeUBits( 4, format );
+        startTag( TAG_DEFINESOUND, id, true );
+        out.writeUBits( 4, format );
         out.writeUBits( 2, frequency );
         out.writeUBits( 1, bits16 ? 1 : 0 );
         out.writeUBits( 1, stereo ? 1 : 0 );
         out.writeUI32 ( sampleCount );
-        out.write( soundData );        completeTag();
-    }        /**
+        out.write( soundData );
+        completeTag();
+    }
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagDefineButtonSound( int buttonId,                    int rollOverSoundId, SoundInfo rollOverSoundInfo,                    int rollOutSoundId,  SoundInfo rollOutSoundInfo,                    int pressSoundId,    SoundInfo pressSoundInfo,                    int releaseSoundId,  SoundInfo releaseSoundInfo )        throws IOException    {        startTag( TAG_DEFINEBUTTONSOUND, buttonId, true );
-                out.writeUI16( rollOverSoundId );
-        if( rollOverSoundId != 0 ) rollOverSoundInfo.write( out );        out.writeUI16( rollOutSoundId );
-        if( rollOutSoundId != 0 ) rollOutSoundInfo.write( out );        
+    public void tagDefineButtonSound( int buttonId,
+                    int rollOverSoundId, SoundInfo rollOverSoundInfo,
+                    int rollOutSoundId,  SoundInfo rollOutSoundInfo,
+                    int pressSoundId,    SoundInfo pressSoundInfo,
+                    int releaseSoundId,  SoundInfo releaseSoundInfo )
+        throws IOException
+    {
+        startTag( TAG_DEFINEBUTTONSOUND, buttonId, true );
+        
+        out.writeUI16( rollOverSoundId );
+        if( rollOverSoundId != 0 ) rollOverSoundInfo.write( out );
+
+        out.writeUI16( rollOutSoundId );
+        if( rollOutSoundId != 0 ) rollOutSoundInfo.write( out );
+        
         out.writeUI16( pressSoundId );
         if( pressSoundId != 0 ) pressSoundInfo.write( out );
         out.writeUI16( releaseSoundId );
         if( releaseSoundId != 0 ) releaseSoundInfo.write( out );
         
-        completeTag();    }
-        /**
+        completeTag();
+    }
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagStartSound( int soundId, SoundInfo info ) throws IOException    {        startTag( TAG_STARTSOUND, soundId, false );
+    public void tagStartSound( int soundId, SoundInfo info ) throws IOException
+    {
+        startTag( TAG_STARTSOUND, soundId, false );
         info.write( out );
-        completeTag();    }
+        completeTag();
+    }
     
     /**
      * SWFTagTypes interface
      */
-    public void tagSoundStreamHead(         int playbackFrequency, boolean playback16bit, boolean playbackStereo,        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,        int averageSampleCount ) throws IOException    {
+    public void tagSoundStreamHead( 
+        int playbackFrequency, boolean playback16bit, boolean playbackStereo,
+        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,
+        int averageSampleCount ) throws IOException
+    {
         writeSoundStreamHead( TAG_SOUNDSTREAMHEAD,
-            playbackFrequency, playback16bit, playbackStereo,            streamFormat, streamFrequency, stream16bit, streamStereo,            averageSampleCount );    }
+            playbackFrequency, playback16bit, playbackStereo,
+            streamFormat, streamFrequency, stream16bit, streamStereo,
+            averageSampleCount );
+    }
     
     /**
      * SWFTagTypes interface
      */
-    public void tagSoundStreamHead2(         int playbackFrequency, boolean playback16bit, boolean playbackStereo,        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,        int averageSampleCount ) throws IOException    {
+    public void tagSoundStreamHead2( 
+        int playbackFrequency, boolean playback16bit, boolean playbackStereo,
+        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,
+        int averageSampleCount ) throws IOException
+    {
         writeSoundStreamHead( TAG_SOUNDSTREAMHEAD2,
-            playbackFrequency, playback16bit, playbackStereo,            streamFormat, streamFrequency, stream16bit, streamStereo,            averageSampleCount );    }
+            playbackFrequency, playback16bit, playbackStereo,
+            streamFormat, streamFrequency, stream16bit, streamStereo,
+            averageSampleCount );
+    }
     
-    public void writeSoundStreamHead( int tag,        int playbackFrequency, boolean playback16bits, boolean playbackStereo,        int streamFormat, int streamFrequency, boolean stream16bits, boolean streamStereo,        int averageSampleCount ) throws IOException        {
+    public void writeSoundStreamHead( int tag,
+        int playbackFrequency, boolean playback16bits, boolean playbackStereo,
+        int streamFormat, int streamFrequency, boolean stream16bits, boolean streamStereo,
+        int averageSampleCount ) throws IOException    
+    {
         startTag( tag, false );
-                out.writeUBits(4,0);
+        
+        out.writeUBits(4,0);
         out.writeUBits(2,playbackFrequency);
         out.writeUBits(1, playback16bits ? 1 : 0 );
         out.writeUBits(1, playbackStereo ? 1 : 0 );
@@ -224,72 +266,119 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
             out.writeUI16 (0); //unknown
         }
         
-        completeTag();    }
-        /**
+        completeTag();
+    }
+    
+    /**
      * SWFTagTypes interface
      */
     public void tagSoundStreamBlock( byte[] soundData ) throws IOException
-    {        startTag( TAG_SOUNDSTREAMBLOCK, true );
-        out.write( soundData );        completeTag();
-    }        /**
+    {
+        startTag( TAG_SOUNDSTREAMBLOCK, true );
+        out.write( soundData );
+        completeTag();
+    }
+    
+    /**
      * SWFTagTypes interface
      */
     public void tagSerialNumber( String serialNumber ) throws IOException
-    {        startTag( TAG_SERIALNUMBER, false );        out.writeString( serialNumber, mStringEncoding );        completeTag();
-    }        /**
+    {
+        startTag( TAG_SERIALNUMBER, false );
+        out.writeString( serialNumber, mStringEncoding );
+        completeTag();
+    }
+    
+    /**
      * SWFTagTypes interface
      */
     public void tagGenerator( byte[] data ) throws IOException
-    {        startTag( TAG_FLASHGENERATOR, false );        out.write( data );        completeTag();
-    }        /**
+    {
+        startTag( TAG_FLASHGENERATOR, false );
+        out.write( data );
+        completeTag();
+    }
+    
+    /**
      * SWFTagTypes interface
      */
     public void tagGeneratorText( byte[] data ) throws IOException
-    {        startTag( TAG_GENERATOR_TEXT, false );        out.write( data );        completeTag();
+    {
+        startTag( TAG_GENERATOR_TEXT, false );
+        out.write( data );
+        completeTag();
     }
     
     /**
      * SWFTagTypes interface
      */
     public void tagGeneratorCommand( byte[] data ) throws IOException
-    {        startTag( TAG_TEMPLATECOMMAND, false );        out.write( data );        completeTag();
+    {
+        startTag( TAG_TEMPLATECOMMAND, false );
+        out.write( data );
+        completeTag();
     }
     
     /**
      * SWFTagTypes interface
      */
     public void tagGeneratorFont( byte[] data ) throws IOException
-    {        startTag( TAG_GEN_EXTERNAL_FONT, false );        out.write( data );        completeTag();
+    {
+        startTag( TAG_GEN_EXTERNAL_FONT, false );
+        out.write( data );
+        completeTag();
     }
     
     /**
      * SWFTagTypes interface
      */
     public void tagNameCharacter( byte[] data ) throws IOException
-    {        startTag( TAG_NAMECHARACTER, false );        out.write( data );        completeTag();
-    }        /**
-     * SWFTagTypes interface
-     */
-    public void tagDefineBits( int id, byte[] imageData ) throws IOException
-    {        startTag( TAG_DEFINEBITS, id, true );        out.write( imageData );        completeTag();
-    }          /**
-     * SWFTagTypes interface
-     */
-    public void tagJPEGTables( byte[] jpegEncodingData ) throws IOException    {
-        startTag( TAG_JPEGTABLES, true );        out.write( jpegEncodingData );        completeTag();
+    {
+        startTag( TAG_NAMECHARACTER, false );
+        out.write( data );
+        completeTag();
     }
-    /**
-     * SWFTagTypes interface
-     */
-    public void tagDefineBitsJPEG3( int id, byte[] imageData, byte[] alphaData ) throws IOException    {
-        startTag( TAG_DEFINEBITSJPEG3, id, true );
-        out.writeUI32( imageData.length );        out.write( imageData );        out.write( alphaData );        completeTag();            }            
+    
     /**
      * SWFTagTypes interface
      */
-    public SWFActions tagDoAction() throws IOException    {
+    public void tagDefineBits( int id, byte[] imageData ) throws IOException
+    {
+        startTag( TAG_DEFINEBITS, id, true );
+        out.write( imageData );
+        completeTag();
+    }  
+    
+    /**
+     * SWFTagTypes interface
+     */
+    public void tagJPEGTables( byte[] jpegEncodingData ) throws IOException
+    {
+        startTag( TAG_JPEGTABLES, true );
+        out.write( jpegEncodingData );
+        completeTag();
+    }
+
+    /**
+     * SWFTagTypes interface
+     */
+    public void tagDefineBitsJPEG3( int id, byte[] imageData, byte[] alphaData ) throws IOException
+    {
+        startTag( TAG_DEFINEBITSJPEG3, id, true );
+        out.writeUI32( imageData.length );
+        out.write( imageData );
+        out.write( alphaData );
+        completeTag();        
+    }        
+    
+    /**
+     * SWFTagTypes interface
+     */
+    public SWFActions tagDoAction() throws IOException
+    {
         startTag( TAG_DOACTION, true );
-        return factorySWFActions();    }
+        return factorySWFActions();
+    }
     
 	/**
 	 * SWFTagTypes interface
@@ -298,23 +387,33 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
 		startTag( TAG_DOINITACTION, spriteId, true );
 		return factorySWFActions();		    
 	}
-        /**
+    
+    /**
      * SWFTagTypes interface
      */
-    public SWFShape tagDefineShape( int id, Rect outline ) throws IOException    {
+    public SWFShape tagDefineShape( int id, Rect outline ) throws IOException
+    {
         startShape( TAG_DEFINESHAPE, id, outline );
-        return factorySWFShape( false, true );    }
-        /**
+        return factorySWFShape( false, true );
+    }
+    
+    /**
      * SWFTagTypes interface
      */
-    public SWFShape tagDefineShape2( int id, Rect outline ) throws IOException    {        startShape( TAG_DEFINESHAPE2, id, outline );
-        return factorySWFShape( false, true );    }
-        /**
+    public SWFShape tagDefineShape2( int id, Rect outline ) throws IOException
+    {
+        startShape( TAG_DEFINESHAPE2, id, outline );
+        return factorySWFShape( false, true );
+    }
+    
+    /**
      * SWFTagTypes interface
      */
-    public SWFShape tagDefineShape3( int id, Rect outline ) throws IOException    {
+    public SWFShape tagDefineShape3( int id, Rect outline ) throws IOException
+    {
         startShape( TAG_DEFINESHAPE3, id, outline );
-        return factorySWFShape( true, true );            }    
+        return factorySWFShape( true, true );        
+    }    
     
     /**
      * SWFTagTypes interface
@@ -329,13 +428,18 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     /**
      * SWFTagTypes interface
      */    
-    public void tagPlaceObject( int charId, int depth,                                 Matrix matrix, AlphaTransform cxform )         throws IOException
+    public void tagPlaceObject( int charId, int depth, 
+                                Matrix matrix, AlphaTransform cxform ) 
+        throws IOException
     {
-        startTag( TAG_PLACEOBJECT, false );        out.writeUI16( charId );        
+        startTag( TAG_PLACEOBJECT, false );
+        out.writeUI16( charId );        
         out.writeUI16( depth );
         matrix.write ( out );
-        if( cxform != null ) cxform.write( out );        completeTag();
-    }    
+        if( cxform != null ) cxform.write( out );
+        completeTag();
+    }
+    
     /**
      * SWFTagTypes interface
      */    
@@ -410,22 +514,29 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
         
     /**
      * SWFTagTypes interface
-     */     public void tagRemoveObject( int charId, int depth ) throws IOException
-    {        startTag( TAG_REMOVEOBJECT, false );
+     */ 
+    public void tagRemoveObject( int charId, int depth ) throws IOException
+    {
+        startTag( TAG_REMOVEOBJECT, false );
         out.writeUI16( charId );
-        out.writeUI16( depth );        completeTag();
+        out.writeUI16( depth );
+        completeTag();
     }
         
     /**
      * SWFTagTypes interface
-     */     public void tagRemoveObject2(int depth ) throws IOException
-    {        startTag( TAG_REMOVEOBJECT2, false );
-        out.writeUI16( depth );        completeTag();
+     */ 
+    public void tagRemoveObject2(int depth ) throws IOException
+    {
+        startTag( TAG_REMOVEOBJECT2, false );
+        out.writeUI16( depth );
+        completeTag();
     }
 
     /**
      * SWFTagTypes interface
-     */     public void tagSetBackgroundColor( Color color ) throws IOException
+     */ 
+    public void tagSetBackgroundColor( Color color ) throws IOException
     {
         startTag( TAG_SETBACKGROUNDCOLOR, false ); 
         color.writeRGB( out );
@@ -434,7 +545,10 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
 
     /**
      * SWFTagTypes interface
-     */     public void tagFrameLabel( String label ) throws IOException    {        tagFrameLabel( label, false );
+     */ 
+    public void tagFrameLabel( String label ) throws IOException
+    {
+        tagFrameLabel( label, false );
     }
     
 	/**
@@ -449,7 +563,8 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     
     /**
      * SWFTagTypes interface
-     */     public SWFTagTypes tagDefineSprite( int id ) throws IOException
+     */ 
+    public SWFTagTypes tagDefineSprite( int id ) throws IOException
     {
         startTag( TAG_DEFINESPRITE, id, true ); 
         
@@ -463,14 +578,20 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     
     /**
      * SWFTagTypes interface
-     */     public void tagProtect( byte[] password ) throws IOException
-    {        mTags.tag( TAG_PROTECT, false, password ); 
-    }    
+     */ 
+    public void tagProtect( byte[] password ) throws IOException
+    {
+        mTags.tag( TAG_PROTECT, false, password ); 
+    }
+    
     /**
      * SWFTagTypes interface
-     */     public void tagEnableDebug( byte[] password ) throws IOException
-    {        mTags.tag( TAG_ENABLEDEBUG, false, password ); 
-    }  
+     */ 
+    public void tagEnableDebug( byte[] password ) throws IOException
+    {
+        mTags.tag( TAG_ENABLEDEBUG, false, password ); 
+    }
+  
 	/**
 	 * SWFTagTypes interface
 	 */ 
@@ -483,14 +604,21 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
 	
     /**
      * SWFTagTypes interface
-     */     public SWFVectors tagDefineFont( int id, int numGlyphs ) throws IOException
-    {        startTag( TAG_DEFINEFONT, id, true );                    return new SWFShapeImpl( this, numGlyphs );    }
+     */ 
+    public SWFVectors tagDefineFont( int id, int numGlyphs ) throws IOException
+    {
+        startTag( TAG_DEFINEFONT, id, true );
+            
+        return new SWFShapeImpl( this, numGlyphs );
+    }
 
     /**
      * SWFTagTypes interface
-     */     public void tagDefineFontInfo( int fontId, String fontName, int flags, int[] codes )
+     */ 
+    public void tagDefineFontInfo( int fontId, String fontName, int flags, int[] codes )
         throws IOException
-    {        startTag( TAG_DEFINEFONTINFO, true );
+    {
+        startTag( TAG_DEFINEFONTINFO, true );
         out.writeUI16( fontId );
         
         byte[] chars = fontName.getBytes();
@@ -506,8 +634,10 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
             if( wide ) out.writeUI16( codes[i] );
             else       out.writeUI8 ( codes[i] );
         }                             
-                completeTag();
-    }
+        
+        completeTag();
+    }
+
 	/**
 	 * SWFTagTypes interface
 	 */ 
@@ -535,7 +665,8 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     
     /**
      * SWFTagTypes interface
-     */     public SWFVectors tagDefineFont2( int id, int flags, String name, int numGlyphs,
+     */ 
+    public SWFVectors tagDefineFont2( int id, int flags, String name, int numGlyphs,
                                       int ascent, int descent, int leading,
                                       int[] codes, int[] advances, Rect[] bounds,
                                       int[] kernCodes1, int[] kernCodes2,
@@ -558,7 +689,8 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     
     /**
      * SWFTagTypes interface
-     */     public void tagDefineTextField( int fieldId, String fieldName,
+     */ 
+    public void tagDefineTextField( int fieldId, String fieldName,
                     String initialText, Rect boundary, int flags,
                     AlphaColor textColor, int alignment, int fontId, int fontSize, 
                     int charLimit, int leftMargin, int rightMargin, int indentation,
@@ -599,19 +731,27 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
 
     /**
      * SWFTagTypes interface
-     */     public SWFText tagDefineText( int id, Rect bounds, Matrix matrix )
+     */ 
+    public SWFText tagDefineText( int id, Rect bounds, Matrix matrix )
         throws IOException
     { 
-        startTag( TAG_DEFINETEXT, id, true );        return defineText( bounds, matrix, false );
-    }    /**
-     * SWFTagTypes interface
-     */     public SWFText tagDefineText2( int id, Rect bounds, Matrix matrix ) throws IOException
-    { 
-        startTag( TAG_DEFINETEXT2, id, true );        return defineText( bounds, matrix, true );
-    }    
+        startTag( TAG_DEFINETEXT, id, true );
+        return defineText( bounds, matrix, false );
+    }
+
     /**
      * SWFTagTypes interface
-     */     public SWFActions tagDefineButton( int id, Vector buttonRecords )
+     */ 
+    public SWFText tagDefineText2( int id, Rect bounds, Matrix matrix ) throws IOException
+    { 
+        startTag( TAG_DEFINETEXT2, id, true );
+        return defineText( bounds, matrix, true );
+    }
+    
+    /**
+     * SWFTagTypes interface
+     */ 
+    public SWFActions tagDefineButton( int id, Vector buttonRecords )
         throws IOException
     {
         startTag( TAG_DEFINEBUTTON, id, true );
@@ -623,22 +763,33 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     
     /**
      * SWFTagTypes interface
-     */     public void tagButtonCXForm( int buttonId, ColorTransform transform ) 
+     */ 
+    public void tagButtonCXForm( int buttonId, ColorTransform transform ) 
         throws IOException
-    {        startTag( TAG_DEFINEBUTTONCXFORM, buttonId, false );
-        transform.writeWithoutAlpha( out );        completeTag();
-    }        
+    {
+        startTag( TAG_DEFINEBUTTONCXFORM, buttonId, false );
+        transform.writeWithoutAlpha( out );
+        completeTag();
+    }
+        
     /**
      * SWFTagTypes interface
-     */     public SWFActions tagDefineButton2( int id,                                         boolean trackAsMenu,                                         Vector buttonRecord2s )
+     */ 
+    public SWFActions tagDefineButton2( int id, 
+                                        boolean trackAsMenu, 
+                                        Vector buttonRecord2s )
         throws IOException
-    {        startTag( TAG_DEFINEBUTTON2, id, true ); 
+    {
+        startTag( TAG_DEFINEBUTTON2, id, true ); 
         out.writeUI8( trackAsMenu ? 1 : 0 );
 
-        return new ButtonActionWriter( this, version, buttonRecord2s );    }
+        return new ButtonActionWriter( this, version, buttonRecord2s );
+    }
+
     /**
      * SWFTagTypes interface
-     */     public void tagExport( String[] names, int[] ids ) throws IOException
+     */ 
+    public void tagExport( String[] names, int[] ids ) throws IOException
     {
         startTag( TAG_EXPORT, true );
         
@@ -658,7 +809,8 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     
     /**
      * SWFTagTypes interface
-     */     public void tagImport( String movieName, String[] names, int[] ids ) 
+     */ 
+    public void tagImport( String movieName, String[] names, int[] ids ) 
         throws IOException
     {
         startTag( TAG_IMPORT, true );
@@ -680,28 +832,52 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
     
     /**
      * SWFTagTypes interface
-     */     public void tagDefineQuickTimeMovie( int id, String filename ) throws IOException
+     */ 
+    public void tagDefineQuickTimeMovie( int id, String filename ) throws IOException
     {
-        startTag( TAG_DEFINEQUICKTIMEMOVIE, id, true );        out.writeString( filename, mStringEncoding );        completeTag();
-    }    
+        startTag( TAG_DEFINEQUICKTIMEMOVIE, id, true );
+        out.writeString( filename, mStringEncoding );
+        completeTag();
+    }
+    
     /**
      * SWFTagTypes interface
-     */     public void tagDefineBitsJPEG2( int id, byte[] data ) throws IOException
+     */ 
+    public void tagDefineBitsJPEG2( int id, byte[] data ) throws IOException
     {
-        startTag( TAG_DEFINEBITSJPEG2, id, true );        out.write( data );        completeTag();
+        startTag( TAG_DEFINEBITSJPEG2, id, true );
+        out.write( data );
+        completeTag();
     }
     /**
      * SWFTagTypes interface
-     */     public void tagDefineBitsLossless( int id, int format, int width, int height,                                       Color[] colors, byte[] imageData )        throws IOException    {
-        writeBitsLossless( id, format, width, height, colors, imageData, false );    }
-        /**
+     */ 
+    public void tagDefineBitsLossless( int id, int format, int width, int height,
+                                       Color[] colors, byte[] imageData )
+        throws IOException
+    {
+        writeBitsLossless( id, format, width, height, colors, imageData, false );
+    }
+    
+    /**
      * SWFTagTypes interface
-     */     public void tagDefineBitsLossless2( int id, int format, int width, int height,                                        Color[] colors, byte[] imageData )        throws IOException    {
-        writeBitsLossless( id, format, width, height, colors, imageData, true );    }
+     */ 
+    public void tagDefineBitsLossless2( int id, int format, int width, int height,
+                                        Color[] colors, byte[] imageData )
+        throws IOException
+    {
+        writeBitsLossless( id, format, width, height, colors, imageData, true );
+    }
     
     
-    public void writeBitsLossless( int id, int format, int width, int height,                                   Color[] colors, byte[] imageData, boolean hasAlpha )        throws IOException    {        startTag( hasAlpha ? TAG_DEFINEBITSLOSSLESS2 : TAG_DEFINEBITSLOSSLESS,
-                  id, true );        out.writeUI8 ( format );
+    public void writeBitsLossless( int id, int format, int width, int height,
+                                   Color[] colors, byte[] imageData, boolean hasAlpha )
+        throws IOException
+    {
+        startTag( hasAlpha ? TAG_DEFINEBITSLOSSLESS2 : TAG_DEFINEBITSLOSSLESS,
+                  id, true );
+
+        out.writeUI8 ( format );
         out.writeUI16( width  );
         out.writeUI16( height );
         
@@ -712,20 +888,33 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
             case BITMAP_FORMAT_32_BIT: break;
             default: throw new IOException( "unknown bitmap format: " + format );
         }                
-               //--zip up the colors and the bitmap data
+       
+        //--zip up the colors and the bitmap data
         DeflaterOutputStream deflater = new DeflaterOutputStream( bytes );
         OutStream zipOut = new OutStream( deflater );
-                        if( format == BITMAP_FORMAT_8_BIT || format == BITMAP_FORMAT_16_BIT )        {
+                
+        if( format == BITMAP_FORMAT_8_BIT || format == BITMAP_FORMAT_16_BIT )
+        {
             for( int i = 0; i < colors.length; i++ )
             {
-                if( hasAlpha ) colors[i].writeWithAlpha( zipOut );                 else           colors[i].writeRGB( zipOut );
-            }        }
-        zipOut.write( imageData );                zipOut.flush();        deflater.finish();        
-        completeTag();    }
-        /**
+                if( hasAlpha ) colors[i].writeWithAlpha( zipOut ); 
+                else           colors[i].writeRGB( zipOut );
+            }
+        }
+        zipOut.write( imageData );        
+        zipOut.flush();
+        deflater.finish();
+        
+        completeTag();
+    }
+    
+    /**
      * SWFTagTypes interface
-     */     public void tagDefineBitsJPEG2( int id, InputStream jpegImage ) throws IOException
-    {        startTag( TAG_DEFINEBITSJPEG2, id, true );        
+     */ 
+    public void tagDefineBitsJPEG2( int id, InputStream jpegImage ) throws IOException
+    {
+        startTag( TAG_DEFINEBITSJPEG2, id, true );
+        
         //--Write stream terminator/header
         out.writeUI8( 0xff );
         out.writeUI8( 0xd9 );
@@ -743,9 +932,12 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
         jpegImage.close();        
         completeTag();
     }
-        /**
+    
+    /**
      * SWFTagTypes interface
-     */     public SWFShape tagDefineMorphShape( int id, Rect startBounds, Rect endBounds )         throws IOException
+     */ 
+    public SWFShape tagDefineMorphShape( int id, Rect startBounds, Rect endBounds ) 
+        throws IOException
     {
         startTag( TAG_DEFINEMORPHSHAPE, id, true );
         startBounds.write( out );
@@ -809,9 +1001,9 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
             tagWriter.bytes = null;
         
             //--fix the offsets
-            for( Enumeration enum = offsets.elements(); enum.hasMoreElements(); )
+            for( Enumeration enum_ = offsets.elements(); enum_.hasMoreElements(); )
             {
-                int[] offInfo = (int[])enum.nextElement();
+                int[] offInfo = (int[])enum_.nextElement();
                 int ptr = offInfo[0];
                 int off = offInfo[1];
                 
@@ -921,9 +1113,9 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
             out.writeUI8( glyphBits );
             out.writeUI8( advanceBits );
 
-            for( Enumeration enum = recs.elements(); enum.hasMoreElements(); )
+            for( Enumeration enum_ = recs.elements(); enum_.hasMoreElements(); )
             {
-                Object[] rec = (Object[])enum.nextElement();
+                Object[] rec = (Object[])enum_.nextElement();
 
                 if( rec.length == 4 ) //style record
                 {
@@ -1414,10 +1606,10 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
             
             if( styles != null )
             {
-                for( Enumeration enum = styles.elements(); 
-                     enum.hasMoreElements(); )
+                for( Enumeration enum_ = styles.elements(); 
+                     enum_.hasMoreElements(); )
                 {
-                    Style style = (Style)enum.nextElement();
+                    Style style = (Style)enum_.nextElement();
                     style.write( out, hasAlpha );
                 }
                 
@@ -1518,10 +1710,10 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
                     this.out.writeUI16( fillCount );
                 }
                 
-                for( Enumeration enum = fillStyles.elements(); enum.hasMoreElements(); )
+                for( Enumeration enum_ = fillStyles.elements(); enum_.hasMoreElements(); )
                 {
-                    FillStyle startStyle = (FillStyle)enum.nextElement();
-                    FillStyle endStyle   = (FillStyle)enum.nextElement();
+                    FillStyle startStyle = (FillStyle)enum_.nextElement();
+                    FillStyle endStyle   = (FillStyle)enum_.nextElement();
                     
                     FillStyle.writeMorphFillStyle( this.out, startStyle, endStyle );
                 }                
@@ -1536,10 +1728,10 @@ public class TagWriter implements SWFTagTypes, SWFConstants, SWFFileSignature
                     this.out.writeUI16( lineCount );
                 }
                 
-                for( Enumeration enum = lineStyles.elements(); enum.hasMoreElements(); )
+                for( Enumeration enum_ = lineStyles.elements(); enum_.hasMoreElements(); )
                 {
-                    LineStyle startStyle = (LineStyle)enum.nextElement();
-                    LineStyle endStyle   = (LineStyle)enum.nextElement();
+                    LineStyle startStyle = (LineStyle)enum_.nextElement();
+                    LineStyle endStyle   = (LineStyle)enum_.nextElement();
                     
                     LineStyle.writeMorphLineStyle( this.out, startStyle, endStyle );
                 }                

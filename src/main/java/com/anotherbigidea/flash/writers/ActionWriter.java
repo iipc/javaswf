@@ -151,9 +151,9 @@ public class ActionWriter implements SWFActions, SWFActionCodes
         
     protected void fixupBlocks( byte[] bytes )
     {
-        for( Enumeration enum = blocks.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = blocks.elements(); enum_.hasMoreElements(); )
         {
-            int[] info = (int[])enum.nextElement();
+            int[] info = (int[])enum_.nextElement();
             
             int codeSize = info[1];
             int offset   = info[0];
@@ -166,9 +166,9 @@ public class ActionWriter implements SWFActions, SWFActionCodes
     
     protected void fixupJumps( byte[] bytes )
     {
-        for( Enumeration enum = jumps.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = jumps.elements(); enum_.hasMoreElements(); )
         {
-            Object[] obja = (Object[])enum.nextElement();
+            Object[] obja = (Object[])enum_.nextElement();
             String label  = (String)obja[0];
             int    target = ((Integer)obja[1]).intValue();
             
@@ -191,9 +191,9 @@ public class ActionWriter implements SWFActions, SWFActionCodes
     
     protected void fixupSkips( byte[] bytes )
     {
-        for( Enumeration enum = skips.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = skips.elements(); enum_.hasMoreElements(); )
         {
-            Object[] obja = (Object[])enum.nextElement();
+            Object[] obja = (Object[])enum_.nextElement();
             String label  = (String)obja[0];
             
             int[] skipInfo  = (int[])obja[1];
@@ -1090,9 +1090,9 @@ public class ActionWriter implements SWFActions, SWFActionCodes
         ByteArrayOutputStream baout = new ByteArrayOutputStream();
         OutStream bout = new OutStream( baout );
         
-        for( Enumeration enum = pushValues.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = pushValues.elements(); enum_.hasMoreElements(); )
         {
-            Object value = enum.nextElement();
+            Object value = enum_.nextElement();
             
             if( value instanceof String )
             {

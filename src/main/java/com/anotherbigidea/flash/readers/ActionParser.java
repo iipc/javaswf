@@ -76,9 +76,9 @@ public class ActionParser implements SWFActionCodes
     protected void processRecords( Vector records ) throws IOException
     {
         //--process action records
-        for( Enumeration enum = records.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = records.elements(); enum_.hasMoreElements(); )
         {
-            ActionRecord rec = (ActionRecord)enum.nextElement();
+            ActionRecord rec = (ActionRecord)enum_.nextElement();
             
             //actions.comment( "depth=" + rec.blockDepth );
             
@@ -404,9 +404,9 @@ public class ActionParser implements SWFActionCodes
         }        
         
         //--Tie up the jumpers with the offsets
-        for( Enumeration enum = jumpers.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = jumpers.elements(); enum_.hasMoreElements(); )
         {
-            ActionRecord rec = (ActionRecord)enum.nextElement();
+            ActionRecord rec = (ActionRecord)enum_.nextElement();
             
             InStream in2 = new InStream( rec.data );
             int jumpOffset = in2.readSI16();
@@ -424,9 +424,9 @@ public class ActionParser implements SWFActionCodes
         }
         
         //--Tie up the skippers with labels
-        for( Enumeration enum = skippers.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = skippers.elements(); enum_.hasMoreElements(); )
         {
-            int idx = ((Integer)enum.nextElement()).intValue();
+            int idx = ((Integer)enum_.nextElement()).intValue();
             
             ActionRecord rec = (ActionRecord)records.elementAt(idx);
             

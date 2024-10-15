@@ -157,126 +157,191 @@ public class SWFTagDumper
     /**
      * SWFTagTypes interface
      */
-    public void tagStartSound( int soundId, SoundInfo info ) throws IOException    {
-        println( "start-sound id=" + soundId + " " + info );    }
+    public void tagStartSound( int soundId, SoundInfo info ) throws IOException
+    {
+        println( "start-sound id=" + soundId + " " + info );
+    }
     
     /**
      * SWFTagTypes interface
      */
-    public void tagSoundStreamHead(         int playbackFrequency, boolean playback16bit, boolean playbackStereo,        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,        int averageSampleCount ) throws IOException    {
+    public void tagSoundStreamHead( 
+        int playbackFrequency, boolean playback16bit, boolean playbackStereo,
+        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,
+        int averageSampleCount ) throws IOException
+    {
         printSoundStreamHead( "sound-stream-head", 
-            playbackFrequency, playback16bit, playbackStereo,            streamFormat, streamFrequency, stream16bit, streamStereo,            averageSampleCount );    }
+            playbackFrequency, playback16bit, playbackStereo,
+            streamFormat, streamFrequency, stream16bit, streamStereo,
+            averageSampleCount );
+    }
     
     /**
      * SWFTagTypes interface
      */
-    public void tagSoundStreamHead2(         int playbackFrequency, boolean playback16bit, boolean playbackStereo,        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,        int averageSampleCount ) throws IOException    {
+    public void tagSoundStreamHead2( 
+        int playbackFrequency, boolean playback16bit, boolean playbackStereo,
+        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,
+        int averageSampleCount ) throws IOException
+    {
         printSoundStreamHead( "sound-stream-head-2", 
-            playbackFrequency, playback16bit, playbackStereo,            streamFormat, streamFrequency, stream16bit, streamStereo,            averageSampleCount );    }
+            playbackFrequency, playback16bit, playbackStereo,
+            streamFormat, streamFrequency, stream16bit, streamStereo,
+            averageSampleCount );
+    }
     
-    public void printSoundStreamHead( String name,        int playbackFrequency, boolean playback16bit, boolean playbackStereo,        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,        int averageSampleCount ) throws IOException    {        String playFreq = "5.5";
-        if( playbackFrequency == SWFConstants.SOUND_FREQ_11KHZ ) playFreq = "11";        if( playbackFrequency == SWFConstants.SOUND_FREQ_22KHZ ) playFreq = "22";        if( playbackFrequency == SWFConstants.SOUND_FREQ_44KHZ ) playFreq = "44";                String streamFreq = "5.5";
-        if( streamFrequency == SWFConstants.SOUND_FREQ_11KHZ ) streamFreq = "11";        if( streamFrequency == SWFConstants.SOUND_FREQ_22KHZ ) streamFreq = "22";        if( streamFrequency == SWFConstants.SOUND_FREQ_44KHZ ) streamFreq = "44";                        String format = "RawSamples";
-        if( streamFormat == SWFConstants.SOUND_FORMAT_ADPCM ) format = "ADPCM";        if( streamFormat == SWFConstants.SOUND_FORMAT_MP3   ) format = "MP3";        
+    public void printSoundStreamHead( String name,
+        int playbackFrequency, boolean playback16bit, boolean playbackStereo,
+        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,
+        int averageSampleCount ) throws IOException
+    {
+        String playFreq = "5.5";
+        if( playbackFrequency == SWFConstants.SOUND_FREQ_11KHZ ) playFreq = "11";
+        if( playbackFrequency == SWFConstants.SOUND_FREQ_22KHZ ) playFreq = "22";
+        if( playbackFrequency == SWFConstants.SOUND_FREQ_44KHZ ) playFreq = "44";
+        
+        String streamFreq = "5.5";
+        if( streamFrequency == SWFConstants.SOUND_FREQ_11KHZ ) streamFreq = "11";
+        if( streamFrequency == SWFConstants.SOUND_FREQ_22KHZ ) streamFreq = "22";
+        if( streamFrequency == SWFConstants.SOUND_FREQ_44KHZ ) streamFreq = "44";        
+        
+        String format = "RawSamples";
+        if( streamFormat == SWFConstants.SOUND_FORMAT_ADPCM ) format = "ADPCM";
+        if( streamFormat == SWFConstants.SOUND_FORMAT_MP3   ) format = "MP3";
+        
         println( name + " play at " + playFreq + "kHz stereo=" + playbackStereo +
                  " 16bit=" + playback16bit + " | Stream at " + streamFreq +
                  "kHz format=" + format + " stereo=" + streamStereo +
-                 " 16bit=" + stream16bit + " Avg-Samples=" + averageSampleCount );    }
+                 " 16bit=" + stream16bit + " Avg-Samples=" + averageSampleCount );
+    }
     
-        /**
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagSoundStreamBlock( byte[] soundData ) throws IOException    {
+    public void tagSoundStreamBlock( byte[] soundData ) throws IOException
+    {
         println( "sound-stream-block" );
         
         if( dumpHex )
         {
             Hex.dump( writer, soundData, 0L, indent + "    ", false );
             println( dashes );
-        }            }            /**
+        }        
+    }    
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagSerialNumber( String serialNumber ) throws IOException    {
-        println( "serial number =" + serialNumber );           }    
-                                                                      /**
+    public void tagSerialNumber( String serialNumber ) throws IOException
+    {
+        println( "serial number =" + serialNumber );       
+    }    
+                                                              
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagGenerator( byte[] data ) throws IOException    {
+    public void tagGenerator( byte[] data ) throws IOException
+    {
         println( "generator tag" );
         
         if( dumpHex )
         {
             Hex.dump( writer, data, 0L, indent + "    ", false );
             println( dashes );
-        }            }               /**
+        }        
+    }       
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagGeneratorText( byte[] data ) throws IOException    {
+    public void tagGeneratorText( byte[] data ) throws IOException
+    {
         println( "generator text" );
         
         if( dumpHex )
         {
             Hex.dump( writer, data, 0L, indent + "    ", false );
             println( dashes );
-        }            }        
-        /**
+        }        
+    }        
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagGeneratorFont( byte[] data ) throws IOException    {
+    public void tagGeneratorFont( byte[] data ) throws IOException
+    {
         println( "generator font" );
         
         if( dumpHex )
         {
             Hex.dump( writer, data, 0L, indent + "    ", false );
             println( dashes );
-        }            }        
+        }        
+    }    
+    
     /**
      * SWFTagTypes interface
      */
-    public void tagGeneratorCommand( byte[] data ) throws IOException    {
+    public void tagGeneratorCommand( byte[] data ) throws IOException
+    {
         println( "generator command" );
         
         if( dumpHex )
         {
             Hex.dump( writer, data, 0L, indent + "    ", false );
             println( dashes );
-        }            }            
+        }        
+    }            
 
     /**
      * SWFTagTypes interface
      */
-    public void tagNameCharacter( byte[] data ) throws IOException    {
+    public void tagNameCharacter( byte[] data ) throws IOException
+    {
         println( "generator name character" );
         
         if( dumpHex )
         {
             Hex.dump( writer, data, 0L, indent + "    ", false );
             println( dashes );
-        }            }                        /**
+        }        
+    }                
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagDefineBits( int id, byte[] imageData ) throws IOException    {
+    public void tagDefineBits( int id, byte[] imageData ) throws IOException
+    {
         println( "jpeg bits" );
         
         if( dumpHex )
         {
             Hex.dump( writer, imageData, 0L, indent + "    ", false );
             println( dashes );
-        }            }                    /**
+        }        
+    }            
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagJPEGTables( byte[] jpegEncodingData ) throws IOException    {
+    public void tagJPEGTables( byte[] jpegEncodingData ) throws IOException
+    {
         println( "jpeg encoding data" );
         
         if( dumpHex )
         {
             Hex.dump( writer, jpegEncodingData, 0L, indent + "    ", false );
             println( dashes );
-        }            }                
-    /**
+        }        
+    }                
+
+    /**
      * SWFTagTypes interface
      */
-    public void tagDefineBitsJPEG3( int id, byte[] imageData, byte[] alphaData ) throws IOException    {
+    public void tagDefineBitsJPEG3( int id, byte[] imageData, byte[] alphaData ) throws IOException
+    {
         println( "jpeg with alpha" );
         
         if( dumpHex )
@@ -285,42 +350,67 @@ public class SWFTagDumper
             println( "--- Alpha Channel follows ---" );
             Hex.dump( writer, alphaData, 0L, indent + "    ", false );
             println( dashes );
-        }             }                
+        }         
+    }                
     
     /**
      * SWFTagTypes interface
      */
     public void tagDefineSound( int id, int format, int frequency,
                                 boolean bits16, boolean stereo,
-                                int sampleCount, byte[] soundData ) throws IOException    {        String freq = "5.5";
-        if( frequency == SWFConstants.SOUND_FREQ_11KHZ ) freq = "11";        if( frequency == SWFConstants.SOUND_FREQ_22KHZ ) freq = "22";        if( frequency == SWFConstants.SOUND_FREQ_44KHZ ) freq = "44";                        String formatS = "RawSamples";
-        if( format == SWFConstants.SOUND_FORMAT_ADPCM ) formatS = "ADPCM";        if( format == SWFConstants.SOUND_FORMAT_MP3   ) formatS = "MP3";                        
-        println( "define sound: id=" + id + " format=" + formatS +                  " freq=" + freq + "kHz 16bit=" + bits16 +                 " stereo=" + stereo + " samples=" + sampleCount );
+                                int sampleCount, byte[] soundData ) throws IOException
+    {
+        String freq = "5.5";
+        if( frequency == SWFConstants.SOUND_FREQ_11KHZ ) freq = "11";
+        if( frequency == SWFConstants.SOUND_FREQ_22KHZ ) freq = "22";
+        if( frequency == SWFConstants.SOUND_FREQ_44KHZ ) freq = "44";        
+        
+        String formatS = "RawSamples";
+        if( format == SWFConstants.SOUND_FORMAT_ADPCM ) formatS = "ADPCM";
+        if( format == SWFConstants.SOUND_FORMAT_MP3   ) formatS = "MP3";        
+        
+        
+        println( "define sound: id=" + id + " format=" + formatS + 
+                 " freq=" + freq + "kHz 16bit=" + bits16 +
+                 " stereo=" + stereo + " samples=" + sampleCount );
         
         if( dumpHex )
         {
             Hex.dump( writer, soundData, 0L, indent + "    ", false );
             println( dashes );
-        }            }                        /**
+        }        
+    }                
+    
+    /**
      * SWFTagTypes interface
      */
-    public void tagDefineButtonSound( int buttonId,                    int rollOverSoundId, SoundInfo rollOverSoundInfo,                    int rollOutSoundId,  SoundInfo rollOutSoundInfo,                    int pressSoundId,    SoundInfo pressSoundInfo,                    int releaseSoundId,  SoundInfo releaseSoundInfo )        throws IOException    {
+    public void tagDefineButtonSound( int buttonId,
+                    int rollOverSoundId, SoundInfo rollOverSoundInfo,
+                    int rollOutSoundId,  SoundInfo rollOutSoundInfo,
+                    int pressSoundId,    SoundInfo pressSoundInfo,
+                    int releaseSoundId,  SoundInfo releaseSoundInfo )
+        throws IOException
+    {
         println( "define button sound: id=" + buttonId );
         println( "    roll-over sound=" + rollOverSoundId + " " + rollOverSoundInfo );
         println( "    roll-out  sound=" + rollOutSoundId  + " " + rollOutSoundInfo );
         println( "    press     sound=" + pressSoundId    + " " + pressSoundInfo );
-        println( "    release   sound=" + releaseSoundId  + " " + releaseSoundInfo );           }                
+        println( "    release   sound=" + releaseSoundId  + " " + releaseSoundInfo );       
+    }                
     
     /**
      * SWFTagTypes interface
      */
     public void tagShowFrame() throws IOException
     {
-        println( "---------- frame ----------" );    }    
+        println( "---------- frame ----------" );
+    }
+    
     /**
      * SWFTagTypes interface
      */
-    public SWFActions tagDoAction() throws IOException    {
+    public SWFActions tagDoAction() throws IOException
+    {
         println( "actions:" );
         
         ActionTextWriter acts = new ActionTextWriter( writer );
@@ -339,24 +429,35 @@ public class SWFTagDumper
 		acts.indent = "    " + indent ;
 		return acts;
 	}
-        /**
-     * SWFTagTypes interface
-     */
-    public SWFShape tagDefineShape( int id, Rect outline ) throws IOException    {
-        println( "shape id=" + id + "   " + outline );
-        return this;    }
     
-        /**
+    /**
      * SWFTagTypes interface
      */
-    public SWFShape tagDefineShape2( int id, Rect outline ) throws IOException    {        println( "shape2 id=" + id + "   " + outline );
-        return this;    }
-        /**
+    public SWFShape tagDefineShape( int id, Rect outline ) throws IOException
+    {
+        println( "shape id=" + id + "   " + outline );
+        return this;
+    }
+    
+    
+    /**
      * SWFTagTypes interface
      */
-    public SWFShape tagDefineShape3( int id, Rect outline ) throws IOException    {
+    public SWFShape tagDefineShape2( int id, Rect outline ) throws IOException
+    {
+        println( "shape2 id=" + id + "   " + outline );
+        return this;
+    }
+    
+    /**
+     * SWFTagTypes interface
+     */
+    public SWFShape tagDefineShape3( int id, Rect outline ) throws IOException
+    {
         println( "shape3 id=" + id + "   " + outline );
-        return this;    }    
+        return this;
+
+    }    
     
     /**
      * SWFTagTypes interface
@@ -369,9 +470,14 @@ public class SWFTagDumper
     /**
      * SWFTagTypes interface
      */    
-    public void tagPlaceObject( int charId, int depth,                                 Matrix matrix, AlphaTransform cxform )         throws IOException
-    {        println( "place-object id=" + charId +                  " depth=" + depth + "  " + matrix + "  " + cxform );
-    }    
+    public void tagPlaceObject( int charId, int depth, 
+                                Matrix matrix, AlphaTransform cxform ) 
+        throws IOException
+    {
+        println( "place-object id=" + charId + 
+                 " depth=" + depth + "  " + matrix + "  " + cxform );
+    }
+    
     /**
      * SWFTagTypes interface
      */    
@@ -387,13 +493,18 @@ public class SWFTagDumper
         throws IOException    
     {
         println( "place-object2 move=" + isMove +
-                 " id=" + charId +                                          " depth=" + depth +                  " clip=" + clipDepth +
+                 " id=" + charId +                         
+                 " depth=" + depth + 
+                 " clip=" + clipDepth +
                  " ratio=" + ratio +
-                 " name=" + name +                 "  " + matrix + "  " + cxform );
+                 " name=" + name +
+                 "  " + matrix + "  " + cxform );
         
         if( clipActionFlags != 0 )
         {
-            println( "  clip-actions:" );                        ActionTextWriter acts = new ActionTextWriter( writer );
+            println( "  clip-actions:" );
+            
+            ActionTextWriter acts = new ActionTextWriter( writer );
             acts.indent = "    " + indent ;
             return acts;
         }
@@ -403,27 +514,35 @@ public class SWFTagDumper
         
     /**
      * SWFTagTypes interface
-     */     public void tagRemoveObject( int charId, int depth ) throws IOException
-    {        println( "remove-object id=" + charId + " depth=" + depth );
+     */ 
+    public void tagRemoveObject( int charId, int depth ) throws IOException
+    {
+        println( "remove-object id=" + charId + " depth=" + depth );
     }
         
     /**
      * SWFTagTypes interface
-     */     public void tagRemoveObject2(int depth ) throws IOException
-    {        println( "remove-object2 depth=" + depth );
+     */ 
+    public void tagRemoveObject2(int depth ) throws IOException
+    {
+        println( "remove-object2 depth=" + depth );
     }
 
     /**
      * SWFTagTypes interface
-     */     public void tagSetBackgroundColor( Color color ) throws IOException
+     */ 
+    public void tagSetBackgroundColor( Color color ) throws IOException
     {
         println( "background-color  " + color );        
     }
 
     /**
      * SWFTagTypes interface
-     */     public void tagFrameLabel( String label ) throws IOException    {
-        println( "frame-label " + label );    }
+     */ 
+    public void tagFrameLabel( String label ) throws IOException
+    {
+        println( "frame-label " + label );
+    }
     
 	/**
 	 * SWFTagTypes interface
@@ -434,24 +553,32 @@ public class SWFTagDumper
     
     /**
      * SWFTagTypes interface
-     */     public SWFTagTypes tagDefineSprite( int id ) throws IOException
+     */ 
+    public SWFTagTypes tagDefineSprite( int id ) throws IOException
     {
         println( "sprite id=" + id );
         
         SWFTagDumper dumper = new SWFTagDumper( writer, dumpHex, decompileActions );
         dumper.indent = indent + "    ";
-        return dumper;    }
+        return dumper;
+    }
     
     /**
      * SWFTagTypes interface
-     */     public void tagProtect( byte[] password ) throws IOException
-    {        println( "protect" );
-    }    
+     */ 
+    public void tagProtect( byte[] password ) throws IOException
+    {
+        println( "protect" );
+    }
+    
     /**
      * SWFTagTypes interface
-     */     public void tagEnableDebug( byte[] password ) throws IOException
+     */ 
+    public void tagEnableDebug( byte[] password ) throws IOException
     {
-        println( "enable-debug" );            }        
+        println( "enable-debug" );        
+    }
+        
 	/**
 	 * SWFTagTypes interface
 	 */ 
@@ -462,17 +589,23 @@ public class SWFTagDumper
         
     /**
      * SWFTagTypes interface
-     */     public SWFVectors tagDefineFont( int id, int numGlyphs ) throws IOException
-    {        println( "font id=" + id );
-        return this;    }
+     */ 
+    public SWFVectors tagDefineFont( int id, int numGlyphs ) throws IOException
+    {
+        println( "font id=" + id );
+        return this;
+    }
 
     /**
      * SWFTagTypes interface
-     */     public void tagDefineFontInfo( int fontId, String fontName, int flags, int[] codes )
+     */ 
+    public void tagDefineFontInfo( int fontId, String fontName, int flags, int[] codes )
         throws IOException
     {
         println( "font-info id=" + fontId + " name=" + fontName + 
-                 " flags=" + Integer.toBinaryString( flags ) + " codes=" + codes.length );    }
+                 " flags=" + Integer.toBinaryString( flags ) + " codes=" + codes.length );
+    }
+
 	/**
 	 * SWFTagTypes interface
 	 */ 
@@ -486,20 +619,24 @@ public class SWFTagDumper
     
     /**
      * SWFTagTypes interface
-     */     public SWFVectors tagDefineFont2( int id, int flags, String name, int numGlyphs,
+     */ 
+    public SWFVectors tagDefineFont2( int id, int flags, String name, int numGlyphs,
                                       int ascent, int descent, int leading,
                                       int[] codes, int[] advances, Rect[] bounds,
                                       int[] kernCodes1, int[] kernCodes2,
                                       int[] kernAdjustments ) throws IOException
     {
         println( "font2 id=" + id + " flags=" + Integer.toBinaryString( flags ) +
-                 " name=" + name + " ascent=" + ascent + " descent=" + descent +                 " leading=" + leading + " has-kerns=" + (kernCodes1 != null));
+                 " name=" + name + " ascent=" + ascent + " descent=" + descent +
+                 " leading=" + leading + " has-kerns=" + (kernCodes1 != null));
         
-        return this;    }
+        return this;
+    }
     
     /**
      * SWFTagTypes interface
-     */     public void tagDefineTextField( int fieldId, String fieldName,
+     */ 
+    public void tagDefineTextField( int fieldId, String fieldName,
                     String initialText, Rect boundary, int flags,
                     AlphaColor textColor, int alignment, int fontId, int fontSize, 
                     int charLimit, int leftMargin, int rightMargin, int indentation,
@@ -512,60 +649,92 @@ public class SWFTagDumper
 			initialText = initialText.replace( '\b', ' ' );
      	}
     	
-        println( "edit-field id=" + fieldId + " name=" + fieldName +                 " text=" + initialText + " font=" + fontId + " size=" + fontSize +                 " chars=" + charLimit + " left=" + leftMargin +                 " right=" + rightMargin + " indent=" + indentation +                 " spacing=" + lineSpacing + " alignment=" + alignment +
-                 " flags=" + Integer.toBinaryString( flags ) +                 " " + textColor );        
+        println( "edit-field id=" + fieldId + " name=" + fieldName +
+                 " text=" + initialText + " font=" + fontId + " size=" + fontSize +
+                 " chars=" + charLimit + " left=" + leftMargin +
+                 " right=" + rightMargin + " indent=" + indentation +
+                 " spacing=" + lineSpacing + " alignment=" + alignment +
+                 " flags=" + Integer.toBinaryString( flags ) +
+                 " " + textColor );        
     }
 
     /**
      * SWFTagTypes interface
-     */     public SWFText tagDefineText( int id, Rect bounds, Matrix matrix )
+     */ 
+    public SWFText tagDefineText( int id, Rect bounds, Matrix matrix )
         throws IOException
     { 
         println( "text id=" + id + " " + bounds + " " + matrix );
-        return this;    }    /**
-     * SWFTagTypes interface
-     */     public SWFText tagDefineText2( int id, Rect bounds, Matrix matrix ) throws IOException
-    { 
-        println( "text2 id=" + id + " " + bounds + " " + matrix );
-        return this;    }    
+        return this;
+    }
+
     /**
      * SWFTagTypes interface
-     */     public SWFActions tagDefineButton( int id, Vector buttonRecords )
+     */ 
+    public SWFText tagDefineText2( int id, Rect bounds, Matrix matrix ) throws IOException
+    { 
+        println( "text2 id=" + id + " " + bounds + " " + matrix );
+        return this;
+    }
+    
+    /**
+     * SWFTagTypes interface
+     */ 
+    public SWFActions tagDefineButton( int id, Vector buttonRecords )
         throws IOException
     {
         println( "button id=" + id );
         
-        for( Enumeration enum = buttonRecords.elements(); enum.hasMoreElements(); )
-        {            ButtonRecord rec = (ButtonRecord)enum.nextElement();            println( "  " + rec );
+        for( Enumeration enum_ = buttonRecords.elements(); enum_.hasMoreElements(); )
+        {
+            ButtonRecord rec = (ButtonRecord)enum_.nextElement();
+            println( "  " + rec );
         }
-        println( "  actions:" );                ActionTextWriter acts = new ActionTextWriter( writer );
+
+        println( "  actions:" );
+        
+        ActionTextWriter acts = new ActionTextWriter( writer );
         acts.indent = "    " + indent ;
         return acts;
     }
     
     /**
      * SWFTagTypes interface
-     */     public void tagButtonCXForm( int buttonId, ColorTransform transform ) 
+     */ 
+    public void tagButtonCXForm( int buttonId, ColorTransform transform ) 
         throws IOException
     {
-        println( "button-cxform id=" + buttonId + "  " + transform );    }        
+        println( "button-cxform id=" + buttonId + "  " + transform );
+    }
+        
     /**
      * SWFTagTypes interface
-     */     public SWFActions tagDefineButton2( int id,                                         boolean trackAsMenu,                                         Vector buttonRecord2s )
+     */ 
+    public SWFActions tagDefineButton2( int id, 
+                                        boolean trackAsMenu, 
+                                        Vector buttonRecord2s )
         throws IOException
-    {        println( "button2 id=" + id + " track-as-menu=" + trackAsMenu );
+    {
+        println( "button2 id=" + id + " track-as-menu=" + trackAsMenu );
         
-        for( Enumeration enum = buttonRecord2s.elements(); enum.hasMoreElements(); )
-        {            ButtonRecord2 rec = (ButtonRecord2)enum.nextElement();            println( "  " + rec );
+        for( Enumeration enum_ = buttonRecord2s.elements(); enum_.hasMoreElements(); )
+        {
+            ButtonRecord2 rec = (ButtonRecord2)enum_.nextElement();
+            println( "  " + rec );
         }
-        println( "  actions:" );                ActionTextWriter acts = new ActionTextWriter( writer );
+
+        println( "  actions:" );
+        
+        ActionTextWriter acts = new ActionTextWriter( writer );
         acts.indent = "    " + indent ;
         return acts;
             
-    }
+    }
+
     /**
      * SWFTagTypes interface
-     */     public void tagExport( String[] names, int[] ids ) throws IOException
+     */ 
+    public void tagExport( String[] names, int[] ids ) throws IOException
     {
         println( "export" );
         
@@ -577,7 +746,8 @@ public class SWFTagDumper
     
     /**
      * SWFTagTypes interface
-     */     public void tagImport( String movieName, String[] names, int[] ids ) 
+     */ 
+    public void tagImport( String movieName, String[] names, int[] ids ) 
         throws IOException
     {
         println( "import library-movie=" + movieName );
@@ -590,12 +760,16 @@ public class SWFTagDumper
     
     /**
      * SWFTagTypes interface
-     */     public void tagDefineQuickTimeMovie( int id, String filename ) throws IOException
-    {        println( "quicktime-movie id=" + id + " name=" + filename );
-    }    
+     */ 
+    public void tagDefineQuickTimeMovie( int id, String filename ) throws IOException
+    {
+        println( "quicktime-movie id=" + id + " name=" + filename );
+    }
+    
     /**
      * SWFTagTypes interface
-     */     public void tagDefineBitsJPEG2( int id, byte[] data ) throws IOException
+     */ 
+    public void tagDefineBitsJPEG2( int id, byte[] data ) throws IOException
     {
         println( "jpeg2 id=" + id );
 
@@ -604,32 +778,51 @@ public class SWFTagDumper
             Hex.dump( writer, data, 0L, indent + "    ", false );
             println( dashes );
         }
-    }        /**
-     * SWFTagTypes interface
-     */     public void tagDefineBitsJPEG2( int id, InputStream jpegImage ) throws IOException
-    {
-        println( "jpeg2 id=" + id + " (from input stream)" );            }
-        /**
-     * SWFTagTypes interface
-     */     public SWFShape tagDefineMorphShape( int id, Rect startBounds, Rect endBounds )         throws IOException
-    {
-        println( "morph-shape id=" + id + " start: " + 
-                 startBounds + "  end: " + endBounds );
-        return this;    }
+    }
     
     /**
      * SWFTagTypes interface
-     */     public void tagDefineBitsLossless( int id, int format, int width, int height,                                       Color[] colors, byte[] imageData )        throws IOException
-    {        dumpBitsLossless( "bits-lossless", id, format, width, height, colors, imageData );    }
-        /**
+     */ 
+    public void tagDefineBitsJPEG2( int id, InputStream jpegImage ) throws IOException
+    {
+        println( "jpeg2 id=" + id + " (from input stream)" );        
+    }
+    
+    /**
      * SWFTagTypes interface
      */ 
-    public void tagDefineBitsLossless2( int id, int format, int width, int height,                                        Color[] colors, byte[] imageData )        throws IOException
+    public SWFShape tagDefineMorphShape( int id, Rect startBounds, Rect endBounds ) 
+        throws IOException
     {
-        dumpBitsLossless( "bits-lossless2", id, format, width, height, colors, imageData );    }    
+        println( "morph-shape id=" + id + " start: " + 
+                 startBounds + "  end: " + endBounds );
+        return this;
+    }
+    
+    /**
+     * SWFTagTypes interface
+     */ 
+    public void tagDefineBitsLossless( int id, int format, int width, int height,
+                                       Color[] colors, byte[] imageData )
+        throws IOException
+    {
+        dumpBitsLossless( "bits-lossless", id, format, width, height, colors, imageData );
+    }
+    
+    /**
+     * SWFTagTypes interface
+     */ 
+    public void tagDefineBitsLossless2( int id, int format, int width, int height,
+                                        Color[] colors, byte[] imageData )
+        throws IOException
+    {
+        dumpBitsLossless( "bits-lossless2", id, format, width, height, colors, imageData );
+    }    
     
     public void dumpBitsLossless( String name, int id, int format, 
-                                  int width, int height,                                  Color[] colors, byte[] imageData )        throws IOException
+                                  int width, int height,
+                                  Color[] colors, byte[] imageData )
+        throws IOException
     {
         int size = 0;
         if     ( format == SWFConstants.BITMAP_FORMAT_8_BIT  ) size = 8;

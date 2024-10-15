@@ -271,29 +271,53 @@ public class TagParser implements SWFTags, SWFConstants, SWFFileSignature
 		mTagtypes.tagFrameLabel( in.readString( mStringEncoding ) );
 	}
 
-    protected void parseDefineSound( InStream in ) throws IOException    {        int id          = in.readUI16();
+    protected void parseDefineSound( InStream in ) throws IOException
+    {
+        int id          = in.readUI16();
         int format      = (int)in.readUBits( 4 );
         int frequency   = (int)in.readUBits( 2 );
         boolean bits16  = in.readUBits(1) != 0;
         boolean stereo  = in.readUBits(1) != 0;
         int sampleCount = (int)in.readUI32();
         
-        byte[] soundData = in.read();        
+        byte[] soundData = in.read();
+        
         mTagtypes.tagDefineSound( id, format, frequency, bits16, stereo,
-                                 sampleCount, soundData );    }    
-    protected void parseStartSound( InStream in ) throws IOException    {        int id = in.readUI16();
-        SoundInfo info = new SoundInfo( in );        
-        mTagtypes.tagStartSound( id, info );    }    
-    protected void parseDefineButtonSound( InStream in ) throws IOException    {
+                                 sampleCount, soundData );
+    }
+    
+    protected void parseStartSound( InStream in ) throws IOException
+    {
+        int id = in.readUI16();
+        SoundInfo info = new SoundInfo( in );
+        
+        mTagtypes.tagStartSound( id, info );
+    }
+    
+    protected void parseDefineButtonSound( InStream in ) throws IOException
+    {
         int id = in.readUI16();
         
-        int       rollOverSoundId   = in.readUI16();        SoundInfo rollOverSoundInfo = (rollOverSoundId==0) ? null : new SoundInfo( in );        
-        int       rollOutSoundId   = in.readUI16();        SoundInfo rollOutSoundInfo = (rollOutSoundId==0) ? null : new SoundInfo( in );        
-        int       pressSoundId   = in.readUI16();        SoundInfo pressSoundInfo = (pressSoundId==0) ? null : new SoundInfo( in );        
-        int       releaseSoundId   = in.readUI16();        SoundInfo releaseSoundInfo = (releaseSoundId==0) ? null : new SoundInfo( in );        
+        int       rollOverSoundId   = in.readUI16();
+        SoundInfo rollOverSoundInfo = (rollOverSoundId==0) ? null : new SoundInfo( in );
+        
+        int       rollOutSoundId   = in.readUI16();
+        SoundInfo rollOutSoundInfo = (rollOutSoundId==0) ? null : new SoundInfo( in );
+        
+        int       pressSoundId   = in.readUI16();
+        SoundInfo pressSoundInfo = (pressSoundId==0) ? null : new SoundInfo( in );
+        
+        int       releaseSoundId   = in.readUI16();
+        SoundInfo releaseSoundInfo = (releaseSoundId==0) ? null : new SoundInfo( in );
+        
         mTagtypes.tagDefineButtonSound( id, 
-                     rollOverSoundId, rollOverSoundInfo,                     rollOutSoundId,  rollOutSoundInfo,                     pressSoundId,    pressSoundInfo,                     releaseSoundId,  releaseSoundInfo );
-    }    
+                     rollOverSoundId, rollOverSoundInfo,
+                     rollOutSoundId,  rollOutSoundInfo,
+                     pressSoundId,    pressSoundInfo,
+                     releaseSoundId,  releaseSoundInfo );
+
+    }
+    
     protected void parseSoundStreamHead( boolean adpcmOnly, InStream in ) throws IOException
     {
         int     reserved       = (int)in.readUBits(4);
@@ -334,8 +358,11 @@ public class TagParser implements SWFTags, SWFConstants, SWFFileSignature
         mTagtypes.tagSoundStreamBlock( in.read() );
     }
 
-    protected void parseDefineBits( InStream in ) throws IOException    {
-        mTagtypes.tagDefineBits( in.readUI16(), in.read() );    }    
+    protected void parseDefineBits( InStream in ) throws IOException
+    {
+        mTagtypes.tagDefineBits( in.readUI16(), in.read() );
+    }
+    
     protected void parseDefineJPEGTables( InStream in ) throws IOException
     {
         mTagtypes.tagJPEGTables( in.read() );
@@ -800,9 +827,9 @@ public class TagParser implements SWFTags, SWFConstants, SWFFileSignature
         }
         else
         {
-            for( Enumeration enum = glyphs.elements(); enum.hasMoreElements(); )
+            for( Enumeration enum_ = glyphs.elements(); enum_.hasMoreElements(); )
             {
-                byte[] glyphBytes = (byte[])enum.nextElement();
+                byte[] glyphBytes = (byte[])enum_.nextElement();
                 
                 InStream glyphIn = new InStream( glyphBytes );
                 

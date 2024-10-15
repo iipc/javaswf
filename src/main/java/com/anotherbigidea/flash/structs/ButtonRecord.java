@@ -85,9 +85,9 @@ public class ButtonRecord
      */
     public static void write( OutStream out, Vector records ) throws IOException
     {
-        for( Enumeration enum = records.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = records.elements(); enum_.hasMoreElements(); )
         {
-            ButtonRecord rec = (ButtonRecord)enum.nextElement();
+            ButtonRecord rec = (ButtonRecord)enum_.nextElement();
             rec.write( out );
         }
         

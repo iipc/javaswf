@@ -118,9 +118,9 @@ public class InStream
 				byte[] string = new byte[chars.size()];
                 
 				int i = 0;
-				for( Enumeration enum = chars.elements(); enum.hasMoreElements(); )
+				for( Enumeration enum_ = chars.elements(); enum_.hasMoreElements(); )
 				{
-					string[i++] = ((Byte)enum.nextElement()).byteValue();
+					string[i++] = ((Byte)enum_.nextElement()).byteValue();
 				}
                 
 				return string;

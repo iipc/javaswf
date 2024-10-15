@@ -351,9 +351,9 @@ public class Frame
                                      SWFTagTypes definitionWriter )
         throws IOException 
     {
-        for( Enumeration enum = placements.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = placements.elements(); enum_.hasMoreElements(); )
         {
-            Placement placement = (Placement)enum.nextElement();
+            Placement placement = (Placement)enum_.nextElement();
             
             placement.flushDefinitions( movie, timelineWriter, definitionWriter );
         }
@@ -396,9 +396,9 @@ public class Frame
                                        soundToStart.define( movie, movieTagWriter, timelineTagWriter ),
                                        new SoundInfo( true, false, null, -1, -1, 0 ));
         
-        for( Enumeration enum = placements.elements(); enum.hasMoreElements(); )
+        for( Enumeration enum_ = placements.elements(); enum_.hasMoreElements(); )
         {
-            Placement placement = (Placement)enum.nextElement();
+            Placement placement = (Placement)enum_.nextElement();
             
             placement.write( movie, movieTagWriter, timelineTagWriter );
         }
