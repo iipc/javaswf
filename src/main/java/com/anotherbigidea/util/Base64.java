@@ -242,7 +242,7 @@ public class Base64
     }
     
     /**
-     * If args.length > 0 then encode binary on stdin to base64 on stdout, else
+     * If args.length &gt; 0 then encode binary on stdin to base64 on stdout, else
      * decode base64 on stdin to binary on stdout
      */
     public static void main( String[] args ) throws Exception 

@@ -72,7 +72,7 @@ public class SoundInfo
      * @param envelope       may be null or empty for no envelope
      * @param inPoint        -1 for no in-point
      * @param outPoint       -1 for no out-point
-     * @param loopCount      >1 for a loop count
+     * @param loopCount      &gt;1 for a loop count
      */
     public SoundInfo( boolean noMultiplePlay, boolean stopSound,
                       EnvelopePoint[] envelope, 

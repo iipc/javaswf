@@ -163,7 +163,7 @@ public class Movie implements TimeLine
     
     /**
      * Set the next available depth in the timeline
-     * @param depth must be >= 1
+     * @param depth must be &gt;= 1
      */
     public void setAvailableDepth( int depth )
     {

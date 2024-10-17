@@ -78,7 +78,7 @@ public class Button extends Symbol
         public void usedForOver   ( boolean f ) { usedForOver    = f; }        
 
         /**
-         * @param depth should be >= 1 and there should only be one symbol on any layer
+         * @param depth should be &gt;= 1 and there should only be one symbol on any layer
          */
         public Layer( Symbol symbol, Transform matrix, AlphaTransform cxform,
                       int depth, boolean usedForHitArea, boolean usedForUp, 
@@ -139,7 +139,7 @@ public class Button extends Symbol
         
     /**
      * Add a layer to the button.
-     * @param depth should be >= 1 and there should only be one symbol on any layer
+     * @param depth should be &gt;= 1 and there should only be one symbol on any layer
      */
     public Button.Layer addLayer( Symbol symbol, Transform matrix, 
                       AlphaTransform cxform,
