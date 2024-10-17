@@ -1,6 +1,6 @@
 JavaSWF (IIPC fork)
 ====================
-![Maven Central Version](https://img.shields.io/maven-central/v/org.netpreserve/javaswf)
+[![Maven Central Version](https://img.shields.io/maven-central/v/org.netpreserve/javaswf)](https://central.sonatype.com/artifact/org.netpreserve/javaswf)
 [![javadoc](https://javadoc.io/badge2/org.netpreserve/javaswf/javadoc.svg)](https://javadoc.io/doc/org.netpreserve/javaswf)
 
 This is a mavenised fork of the old
