@@ -40,7 +40,8 @@ import com.anotherbigidea.flash.structs.*;
  * Interface for passing SWF tag types that can be used in a movie or a sprite
  */
 public interface SWFSpriteTagTypes extends SWFTags 
-{    /**
+{
+    /**
      * Start/stop playing a sound
      */
     public void tagStartSound( int soundId, SoundInfo info ) throws IOException;
@@ -51,7 +52,11 @@ public interface SWFSpriteTagTypes extends SWFTags
      * @param streamFormat must be SWFConstants.SOUND_FORMAT_ADPCM
      * @param playbackFrequency one of the SWFConstants.SOUND_FREQ_* constants
      * @param streamFrequency   one of the SWFConstants.SOUND_FREQ_* constants
-     */    public void tagSoundStreamHead(         int playbackFrequency, boolean playback16bit, boolean playbackStereo,        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,        int averageSampleCount ) throws IOException;
+     */
+    public void tagSoundStreamHead( 
+        int playbackFrequency, boolean playback16bit, boolean playbackStereo,
+        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,
+        int averageSampleCount ) throws IOException;
     
     /**
      * Allows any encoding.
@@ -59,8 +64,13 @@ public interface SWFSpriteTagTypes extends SWFTags
      * @param streamFormat      one of the SWFConstants.SOUND_FORMAT_* constants
      * @param playbackFrequency one of the SWFConstants.SOUND_FREQ_* constants
      * @param streamFrequency   one of the SWFConstants.SOUND_FREQ_* constants
-     */    public void tagSoundStreamHead2(         int playbackFrequency, boolean playback16bit, boolean playbackStereo,        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,        int averageSampleCount ) throws IOException;
-        /**
+     */
+    public void tagSoundStreamHead2( 
+        int playbackFrequency, boolean playback16bit, boolean playbackStereo,
+        int streamFormat, int streamFrequency, boolean stream16bit, boolean streamStereo,
+        int averageSampleCount ) throws IOException;
+    
+    /**
      * @param soundData format-dependent sound data
      */
     public void tagSoundStreamBlock( byte[] soundData ) throws IOException;      
@@ -71,7 +81,8 @@ public interface SWFSpriteTagTypes extends SWFTags
 
     /**
      * @return SWFActions to receive actions - or null to skip the data
-     */    public SWFActions tagDoAction() throws IOException;
+     */
+    public SWFActions tagDoAction() throws IOException;
 
 	/**
 	 * @param spriteId the sprite that the actions relate to.
@@ -79,15 +90,20 @@ public interface SWFSpriteTagTypes extends SWFTags
 	 */
 	public SWFActions tagDoInitAction( int spriteId ) throws IOException;
     
-    public void tagFreeCharacter( int charId ) throws IOException;        /**
+    public void tagFreeCharacter( int charId ) throws IOException;
+    
+    /**
      * @param cxform may be null
      */
-    public void tagPlaceObject( int charId, int depth, Matrix matrix, AlphaTransform cxform ) throws IOException;    
-    public void tagRemoveObject( int charId, int depth ) throws IOException;        /**
-     * @param clipDepth < 1 if not relevant
-     * @param charId < 1 if not relevant
+    public void tagPlaceObject( int charId, int depth, Matrix matrix, AlphaTransform cxform ) throws IOException;
+    
+    public void tagRemoveObject( int charId, int depth ) throws IOException;
+    
+    /**
+     * @param clipDepth &lt; 1 if not relevant
+     * @param charId &lt; 1 if not relevant
      * @param name of sprite instance - null if not relevant
-     * @param ratio < 0 if not relevant
+     * @param ratio &lt; 0 if not relevant
      * @param matrix null if not relevant
      * @param cxform null if not relevant
      * @param clipActionFlags == 0 if there are no clip actions - otherwise
@@ -102,8 +118,10 @@ public interface SWFSpriteTagTypes extends SWFTags
                                        AlphaTransform cxform,
                                        int ratio,
                                        String name,
-                                       int clipActionFlags )  throws IOException;    
-    public void tagRemoveObject2( int depth ) throws IOException;
+                                       int clipActionFlags )  throws IOException;
+    
+    public void tagRemoveObject2( int depth ) throws IOException;
+
 	/**
 	 * Define the label for the current frame
 	 */    

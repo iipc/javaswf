@@ -251,7 +251,7 @@ public class Frame
      * @param cxform may be null if no color transform is required
      * @param name   the instance name of a MovieClip - should be null if this is
      *               not a MovieClip
-     * @param clipAction an array of Actions (with clipAction conditions)
+     * @param clipActions an array of Actions (with clipAction conditions)
      */
     public Instance placeMovieClip( Symbol symbol, Transform matrix, 
                                     AlphaTransform cxform, String name,
@@ -278,7 +278,7 @@ public class Frame
      * @param cxform may be null if no color transform is required
      * @param name   the instance name of a MovieClip - should be null if this is
      *               not a MovieClip
-     * @param clipAction an array of Actions (with clipAction conditions)
+     * @param clipActions an array of Actions (with clipAction conditions)
      */
     public Instance replaceMovieClip( Symbol symbol, int depth,
                                       Transform matrix, 

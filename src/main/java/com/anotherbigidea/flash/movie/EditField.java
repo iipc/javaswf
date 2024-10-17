@@ -134,7 +134,7 @@ public class EditField extends Symbol
      * Create an Edit Field with black text and default settings
      * 
      * @param fieldName may be null
-     * @param intialText may be null
+     * @param initialText may be null
      */
     public EditField( String fieldName, String initialText, 
                       Font font, double fontSize,

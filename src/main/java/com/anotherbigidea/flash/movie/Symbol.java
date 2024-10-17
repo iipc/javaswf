@@ -64,7 +64,6 @@ public abstract class Symbol
     /**
      * Make sure that the Symbol is fully defined in the given Movie and
      * return the character id
-     * @param tags a vector into which to place any definition tags required
      */
     protected int define( Movie movie, 
                           SWFTagTypes timelineWriter,

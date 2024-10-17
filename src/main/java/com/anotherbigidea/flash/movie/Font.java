@@ -100,11 +100,7 @@ public class Font extends Symbol
         
         /**
          * @param chars the characters to display (displayable chars only - i.e. no newlines, tabs etc..)
-         * @param font may be null if no change of font is required
          * @param size point-size - only relevant if font is not null
-         * @param color may be null if no color change is required.  May be AlphaColor.
-         * @param x new X position for text - only valid if hasX is true
-         * @param y new Y position for text - only valid if hasY is true
          */
         protected Chars( String chars, double size ) throws NoGlyphException 
         {

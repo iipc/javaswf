@@ -131,7 +131,7 @@ public class Text extends Symbol
      * and vertical position.
      * 
      * @param chars the characters to display)
-     * @param may be AlphaColor.
+     * @param color may be AlphaColor.
      * @param x new X position for text - only valid if hasX is true
      * @param y new Y position for text - only valid if hasY is true
      * 
