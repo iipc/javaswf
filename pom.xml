@@ -39,6 +39,19 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <build>
+        <resources>
+            <!-- Include LICENSE.txt into META-INF in the JAR -->
+            <resource>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>LICENSE.txt</include>
+                </includes>
+                <targetPath>META-INF</targetPath>
+            </resource>
+        </resources>
+    </build>
+
     <profiles>
         <profile>
             <id>release</id>
