@@ -23,6 +23,8 @@
 
     <scm>
         <url>https://github.com/iipc/javaswf</url>
+        <connection>scm:git:https://github.com/iipc/javaswf.git</connection>
+        <developerConnection>scm:git:git@github.com:iipc/javaswf.git</developerConnection>
     </scm>
 
     <developers>
